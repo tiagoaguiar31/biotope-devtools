@@ -9,13 +9,14 @@
   },
   "default_locale": "en",
   "background": {
+    "persistent": true,
     "scripts": [
       "app/libs/polyfill.min.js",
       "app/scripts/chromereload.js",
       "app/scripts/background.js"
     ]
   },
-  "permissions": ["declarativeContent", "storage"],
+  "permissions": ["declarativeContent", "storage", "contextMenus"],
   "browser_action": {
     "default_icon": {
       "19": "app/images/biotope.png",

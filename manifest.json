@@ -1,0 +1,27 @@
+{
+  "name": "__MSG_appName__",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "__MSG_appDescription__",
+  "icons": {
+    "16": "app/images/biotope.png",
+    "128": "app/images/biotope.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "app/libs/polyfill.min.js",
+      "app/scripts/chromereload.js",
+      "app/scripts/background.js"
+    ]
+  },
+  "permissions": ["declarativeContent", "storage"],
+  "browser_action": {
+    "default_icon": {
+      "19": "app/images/biotope.png",
+      "38": "app/images/biotope.png"
+    },
+    "default_title": "Biotope DevTools",
+    "default_popup": "app/popup.html"
+  }
+}

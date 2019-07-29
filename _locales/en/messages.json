@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Biotope DevTools",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "An extension to debug Biotope applications",
+    "description": "The description of the application"
+  }
+}

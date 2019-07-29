@@ -1,0 +1,17 @@
+body {
+  padding: 20px;
+  height: 150px;
+  width: 300px;
+}
+
+img.pop-up--logo {
+  width: 40px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+h1.pop-up--title {
+  font-size: 14px;
+  letter-spacing: 1px;
+}

@@ -4,30 +4,26 @@
 let contextMenus = {};
 
 contextMenus.biotopeDevtools = 
-  chrome.contextMenus.create(
+chrome.contextMenus.create(
     {"title": "Biotope DevTools"},
     function() {
-      if(chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError.message);
-      }
+        if(chrome.runtime.lastError) {
+          console.log("ERROR:")
+          console.error(chrome.runtime.lastError.message);
+        }
     }
-    );
+);
 
-// chrome.runtime.onInstalled.addListener(details => {
-//   console.log('previousVersion', details.previousVersion);
 
-//   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-//     chrome.declarativeContent.onPageChanged.addRules([{
-//       conditions: [new chrome.declarativeContent.PageStateMatcher({
-//         pageUrl: {hostEquals: 'developer.chrome.com'},
-//       })
-//       ],
-//           actions: [new chrome.declarativeContent.ShowPageAction()]
-//     }]);
-//   });
+function contextMenuHandler(info, tab) {
+  if(info.menuItemId === contextMenus.biotopeDevtools) {
+    console.log(chrome.tabs);
+    chrome.tabs.executeScript({
+      file: 'app/scripts/version.js'
+    });
+  }
+}
 
-// });
+console.log('Hello from the background Page');
 
-// chrome.browserAction.setBadgeText({text: '\'Allo'});
-
-console.log('\'Allo \'Allo! Event Page for Browser Action');
+chrome.contextMenus.onClicked.addListener(contextMenuHandler);

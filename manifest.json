@@ -13,16 +13,23 @@
     "scripts": [
       "app/libs/polyfill.min.js",
       "app/scripts/chromereload.js",
-      "app/scripts/background.js"
+      "app/scripts/background.js",
+      "app/scripts/content.js"
     ]
   },
-  "permissions": ["declarativeContent", "storage", "contextMenus"],
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "tabs",
+    "notifications",
+    "http://*/",
+    "https://*/"
+  ],
   "browser_action": {
-    "default_icon": {
-      "19": "app/images/biotope.png",
-      "38": "app/images/biotope.png"
-    },
-    "default_title": "Biotope DevTools",
-    "default_popup": "app/popup.html"
+      "default_icon": "app/images/biotope.png",
+      "default_title": "Biotope DevTools",
+      "default_popup": "app/popup.html"
   }
 }

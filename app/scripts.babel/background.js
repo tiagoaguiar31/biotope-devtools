@@ -24,6 +24,4 @@ function contextMenuHandler(info, tab) {
   }
 }
 
-console.log('Hello from the background Page');
-
 chrome.contextMenus.onClicked.addListener(contextMenuHandler);

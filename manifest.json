@@ -3,6 +3,13 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "Biotope Element debugger",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js":["app/scripts/content.js"],
+      "run_at": "document_end"
+    }
+  ],
   "devtools_page": "app/devtools.html",
   "icons": {
     "16": "app/images/biotope.png",
@@ -18,6 +25,7 @@
       "app/scripts/content.js"
     ]
   },
+  "web_accessible_resources": ["app/scripts/version.js"],
   "permissions": [
     "declarativeContent",
     "storage",

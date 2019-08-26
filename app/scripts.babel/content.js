@@ -1,29 +1,38 @@
 // content.js
 console.log("content js");
 
+var response;
 
-// Send message to background.js
-window.addEventListener('load', wordSelected);
+//Respond to popup's requests
+window.addEventListener('load', function() {
+  chrome.runtime.onMessage.addListener(receiveRequest);
+})
 
-function wordSelected () {
-  let message = "testing";
-  chrome.runtime.sendMessage(message);
-};
+// Receive request from other environments
+const receiveRequest = (request, sender, sendResponse) => {
+  appendVersionScript(function(){
+    const { type } = request;
+    if (type == 'request_version') {
+      sendToBackground({type, message: response});
+    }
+  });
+}
 
+//Send Message to Background
+const sendToBackground = message => chrome.runtime.sendMessage(message);
 
 //Append script to have access to local variables
-setTimeout(() => {
-  var s = document.createElement('script');
+const appendVersionScript = (forwardResponse) => {
+  let s = document.createElement('script');
   s.src = chrome.extension.getURL('app/scripts/version.js');
-  s.async = true;
   (document.head||document.documentElement).appendChild(s);
     s.onload = function() {
       s.remove();
     };
 
-  }, 2000);
-  
-  window.addEventListener('biotope_connectExtension', function(e) {
-    console.log(e)
-    console.log(e.detail);
-  }, false);
+    window.addEventListener('biotope_connectExtension', function(e) {
+      response = {...e.detail};
+      forwardResponse();
+      //return e.detail;
+    }, false);
+}

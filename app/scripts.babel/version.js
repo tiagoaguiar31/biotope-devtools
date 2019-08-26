@@ -1,18 +1,24 @@
 console.log("Hello from version.js");
 
-const biotopeElements = Object.assign({}, window.biotope);
+const biotope = Object.assign({}, window.biotope);
 
-let components = [];
+let data = {};
 let detail = {};
 
-if (biotopeElements.components) {
-  for(let component in biotopeElements.components) {
-    components.push(component) 
+
+if (Object.keys(biotope).length > 0) {
+  if (biotope.components) {
+    data.type = "Biotope Element";
+    data.components = [];
+    for(let component in biotope.components) {
+      data.components.push(component);
+    }
+  } else {
+    data.type = "Biotope";
   }
-  detail = {
-    components,
-    window
-  }
-} 
-const event = new CustomEvent('biotope_connectExtension', { detail:components });
+} else {
+  data.type = null
+}
+
+const event = new CustomEvent('biotope_connectExtension', { detail:data });
 window.dispatchEvent(event);

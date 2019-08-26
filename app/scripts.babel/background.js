@@ -2,7 +2,7 @@
 console.log("background js");
 //All context Menus gets stored in here
 let contextMenus = {};
-
+window.version;
 
 /*
 Menu handler for the right click event on document
@@ -32,7 +32,11 @@ Menu handler for the extension button event
 */
 
 function received(request, sender, sendResponse) {
-  console.log(request, "Background received this message");
+  const { type } = request;
+  if(type === 'request_version') {
+    const { message } = request;
+    window.version = message;
+  }
 }
 
 

@@ -1,27 +1,44 @@
 {
-  "name": "__MSG_appName__",
+  "name": "Biotope DevTools",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "__MSG_appDescription__",
+  "description": "Biotope Element debugger",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js":["app/scripts/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "devtools_page": "app/devtools.html",
   "icons": {
     "16": "app/images/biotope.png",
     "128": "app/images/biotope.png"
   },
   "default_locale": "en",
   "background": {
+    "persistent": true,
     "scripts": [
       "app/libs/polyfill.min.js",
       "app/scripts/chromereload.js",
-      "app/scripts/background.js"
+      "app/scripts/background.js",
+      "app/scripts/content.js"
     ]
   },
-  "permissions": ["declarativeContent", "storage"],
+  "web_accessible_resources": ["app/scripts/version.js"],
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "tabs",
+    "notifications",
+    "http://*/",
+    "https://*/"
+  ],
   "browser_action": {
-    "default_icon": {
-      "19": "app/images/biotope.png",
-      "38": "app/images/biotope.png"
-    },
-    "default_title": "Biotope DevTools",
-    "default_popup": "app/popup.html"
+      "default_icon": "app/images/biotope.png",
+      "default_title": "Biotope DevTools",
+      "default_popup": "app/popup.html"
   }
 }

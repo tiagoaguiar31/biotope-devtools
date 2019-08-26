@@ -1,20 +1,45 @@
 'use strict';
+console.log("background js");
+//All context Menus gets stored in here
+let contextMenus = {};
+window.version;
 
-chrome.runtime.onInstalled.addListener(details => {
-  console.log('previousVersion', details.previousVersion);
+/*
+Menu handler for the right click event on document
+*/
 
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostEquals: 'developer.chrome.com'},
-      })
-      ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
-  });
-  
-});
+contextMenus.rightClickHandler = 
+chrome.contextMenus.create(
+    {title: "Biotope DevTools"},
+    function() {
+        if(chrome.runtime.lastError) {
+          console.log("ERROR:")
+          console.error(chrome.runtime.lastError.message);
+        }
+    }
+);
 
-chrome.browserAction.setBadgeText({text: '\'Allo'});
+function contextMenuHandler(info, tab) {
+  if(info.menuItemId === contextMenus.rightClickHandler) {
+    chrome.tabs.executeScript({
+      file: 'app/scripts/version.js'
+    });
+  }
+}
 
-console.log('\'Allo \'Allo! Event Page for Browser Action');
+/*
+Menu handler for the extension button event
+*/
+
+function received(request, sender, sendResponse) {
+  const { type } = request;
+  if(type === 'request_version') {
+    const { message } = request;
+    window.version = message;
+  }
+}
+
+
+
+chrome.runtime.onMessage.addListener(received);
+chrome.contextMenus.onClicked.addListener(contextMenuHandler);
